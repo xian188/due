@@ -130,3 +130,18 @@ class DocumentStore(DataClassJsonMixin):
     def __len__(self) -> int:
         """Get length."""
         return len(self.docs.keys())
+if __name__ == '__main__':
+    no_license = []
+    for dir_path, dirs, files in os.walk("."):
+        for filename in files:
+            path = os.path.join(dir_path, filename)
+            if path.endswith(".kt") and not file_has_license(path):
+                no_license.append(path)
+
+    if len(no_license) > 0:
+        print("Files without license notice:")
+        for path in no_license:
+            print(path)
+        exit(1)
+    else:
+        print("License OK!")
